@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Szymon on 23.04.2017.
@@ -26,6 +27,7 @@ public abstract class PageReplacementAlgorithm {
     public void handleQueue(){
         activeRequest = requestQueue.get(0);
         while (!isDone()){
+            System.out.println(Arrays.toString(mainMemory));
             if(activeRequest.timeOfRequest <= timePassed){
                 handleRequest();
             }

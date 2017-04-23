@@ -20,7 +20,9 @@ public class FIFO extends PageReplacementAlgorithm{
                 place = findPageToRemove();
             }
             mainMemory[place] = activeRequest.page;
+            activeRequest.page.placedInMemory = timePassed;
         }
+        activeRequest.page.lastRequested = timePassed;
         requestQueue.remove(0);
         if(!isDone()) activeRequest = requestQueue.get(0);
     }
@@ -31,7 +33,10 @@ public class FIFO extends PageReplacementAlgorithm{
         int x = 0;
         for (int i = 1; i < mainMemory.length ; i++) {
             q = mainMemory[i];
-            if(q.placedInMemory < p.placedInMemory) x = i;
+            if(q.placedInMemory < p.placedInMemory){
+                x = i;
+                p = q;
+            }
         }
         return x;
     }

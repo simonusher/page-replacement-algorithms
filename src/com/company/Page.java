@@ -7,4 +7,9 @@ public class Page {
     int placedInMemory = 0;
     int lastRequested = 0;
     boolean wasRequested = false;
+
+    public String toString(){
+        String s = "" + placedInMemory;
+        return s;
+    }
 }
