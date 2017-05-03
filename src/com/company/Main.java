@@ -26,8 +26,12 @@ public class Main {
 //        f.handleQueue();
 //        System.out.println(f.pageFaults);
 
-        RAND rand = new RAND(requestQueue, virtualMemory, 3);
-        rand.handleQueue();
-        System.out.println(rand.pageFaults);
+//        RAND rand = new RAND(requestQueue, virtualMemory, 3);
+//        rand.handleQueue();
+//        System.out.println(rand.pageFaults);
+
+        OPT o = new OPT (requestQueue, virtualMemory, 3);
+        o.handleQueue();
+        System.out.println(o.pageFaults);
     }
 }
