@@ -19,7 +19,7 @@ public abstract class PageReplacementAlgorithm {
     }
 
     public PageReplacementAlgorithm(ArrayList<Request> requestQueue, ArrayList<Page> virtualMemory, int virtualMemorySize) {
-        this.requestQueue = requestQueue;
+        this.requestQueue = (ArrayList)requestQueue.clone();
         this.virtualMemory = virtualMemory;
         this.mainMemory = new Page[virtualMemorySize];
     }
@@ -48,6 +48,7 @@ public abstract class PageReplacementAlgorithm {
             activeRequest.page.placedInMemory = timePassed;
         }
         activeRequest.page.lastRequested = timePassed;
+        activeRequest.page.wasRequested = true;
         requestQueue.remove(0);
         if(!isDone()) activeRequest = requestQueue.get(0);
     }
