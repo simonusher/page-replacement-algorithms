@@ -11,4 +11,9 @@ public class Request {
         this.timeOfRequest = timeOfRequest;
         this.page = page;
     }
+
+    @Override
+    public String toString() {
+        return "" + page.toString();
+    }
 }

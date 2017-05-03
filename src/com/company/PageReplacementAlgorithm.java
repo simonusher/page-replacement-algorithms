@@ -27,13 +27,13 @@ public abstract class PageReplacementAlgorithm {
     public void handleQueue(){
         activeRequest = requestQueue.get(0);
         while (!isDone()){
-            System.out.println(Arrays.toString(mainMemory));
+//            System.out.println(Arrays.toString(mainMemory));
             if(activeRequest.timeOfRequest <= timePassed){
                 handleRequest();
             }
             timePassed++;
         }
-        System.out.println(Arrays.toString(mainMemory));
+//        System.out.println(Arrays.toString(mainMemory));
     }
 
     public abstract int findPageToRemove();

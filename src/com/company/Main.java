@@ -1,46 +1,52 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
-
+    //TODO Dokumentacja programu
     public static void main(String[] args) {
-        ArrayList<Page> virtualMemory = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            virtualMemory.add(new Page(i));
-        }
-        ArrayList<Request> requestQueue = new ArrayList();
-        requestQueue.add(new Request(0, virtualMemory.get(0)));
-        requestQueue.add(new Request(1, virtualMemory.get(1)));
-        requestQueue.add(new Request(2, virtualMemory.get(2)));
-        requestQueue.add(new Request(3, virtualMemory.get(3)));
-        requestQueue.add(new Request(4, virtualMemory.get(0)));
-        requestQueue.add(new Request(5, virtualMemory.get(1)));
-        requestQueue.add(new Request(6, virtualMemory.get(4)));
-        requestQueue.add(new Request(7, virtualMemory.get(0)));
-        requestQueue.add(new Request(8, virtualMemory.get(1)));
-        requestQueue.add(new Request(9, virtualMemory.get(2)));
-        requestQueue.add(new Request(10, virtualMemory.get(3)));
-        requestQueue.add(new Request(11, virtualMemory.get(4)));
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Virtual memory size (number of pages): ");
+        int virtualMemorySize = scanner.nextInt();
 
-        FIFO f = new FIFO(requestQueue, virtualMemory, 3);
-        f.handleQueue();
-        System.out.println(f.pageFaults);
+        System.out.println("Main memory size: ");
+        int mainMemorySize = scanner.nextInt();
 
-        RAND rand = new RAND(requestQueue, virtualMemory, 3);
-        rand.handleQueue();
-        System.out.println(rand.pageFaults);
+        System.out.println("Number of requests: ");
+        int numberOfRequests = scanner.nextInt();
 
-        OPT o = new OPT (requestQueue, virtualMemory, 3);
-        o.handleQueue();
-        System.out.println(o.pageFaults);
+        ArrayList<Page> virtualMemory = Generator.generateVirtualMemory(virtualMemorySize);
+        ArrayList<Request> requestQueue = Generator.generateRequestQueue(virtualMemory, numberOfRequests);
+//        System.out.println(requestQueue.toString());
+//        System.out.println(requestQueue.size());
 
-        LRU lru = new LRU(requestQueue, virtualMemory, 3);
+        System.out.println("Initial conditions: ");
+        System.out.println("\tNumber of pages: " + virtualMemorySize);
+        System.out.println("\tNumber of frames: " + mainMemorySize);
+        System.out.println("\tNumber of requests: " + numberOfRequests);
+
+
+        System.out.println("Page faults: ");
+
+        FIFO fifo = new FIFO(requestQueue, virtualMemory, mainMemorySize);
+        fifo.handleQueue();
+        System.out.println("FIFO: " + fifo.pageFaults);
+
+        OPT opt = new OPT(requestQueue, virtualMemory, mainMemorySize);
+        opt.handleQueue();
+        System.out.println("OPT: " + opt.pageFaults);
+
+        LRU lru = new LRU(requestQueue, virtualMemory, mainMemorySize);
         lru.handleQueue();
-        System.out.println(lru.pageFaults);
+        System.out.println("LRU: " + lru.pageFaults);
 
-        ApproxLRU appLru = new ApproxLRU(requestQueue, virtualMemory, 3);
-        appLru.handleQueue();
-        System.out.println(appLru.pageFaults);
+        ApproxLRU approxLRU = new ApproxLRU(requestQueue, virtualMemory, mainMemorySize);
+        approxLRU.handleQueue();
+        System.out.println("Approximated LRU: " + approxLRU.pageFaults);
+
+        RAND rand = new RAND(requestQueue, virtualMemory, mainMemorySize);
+        rand.handleQueue();
+        System.out.println("RAND: " + rand.pageFaults);
     }
 }
