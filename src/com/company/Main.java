@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<Page> virtualMemory= new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            virtualMemory.add(new Page());
+            virtualMemory.add(new Page(i));
         }
         ArrayList<Request> requestQueue = new ArrayList();
         requestQueue.add(new Request(0, virtualMemory.get(0)));
@@ -22,8 +22,12 @@ public class Main {
         requestQueue.add(new Request(9, virtualMemory.get(2)));
         requestQueue.add(new Request(10, virtualMemory.get(3)));
         requestQueue.add(new Request(11, virtualMemory.get(4)));
-        FIFO f = new FIFO(requestQueue, virtualMemory, 3);
-        f.handleQueue();
-        System.out.println(f.pageFaults);
+//        FIFO f = new FIFO(requestQueue, virtualMemory, 3);
+//        f.handleQueue();
+//        System.out.println(f.pageFaults);
+
+        RAND rand = new RAND(requestQueue, virtualMemory, 3);
+        rand.handleQueue();
+        System.out.println(rand.pageFaults);
     }
 }

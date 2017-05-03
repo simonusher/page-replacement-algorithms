@@ -11,22 +11,6 @@ public class FIFO extends PageReplacementAlgorithm{
         super(requestQueue, virtualMemory, virtualMemorySize);
     }
 
-    @Override
-    public void handleRequest() {
-        if(!isInMainMemory(activeRequest.page)){
-            pageFaults++;
-            place = findEmpty();
-            if(place == -1){
-                place = findPageToRemove();
-            }
-            mainMemory[place] = activeRequest.page;
-            activeRequest.page.placedInMemory = timePassed;
-        }
-        activeRequest.page.lastRequested = timePassed;
-        requestQueue.remove(0);
-        if(!isDone()) activeRequest = requestQueue.get(0);
-    }
-
     public int findPageToRemove(){
         Page p = mainMemory[0];
         Page q;

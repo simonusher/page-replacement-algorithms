@@ -33,10 +33,24 @@ public abstract class PageReplacementAlgorithm {
             }
             timePassed++;
         }
+        System.out.println(Arrays.toString(mainMemory));
     }
 
     public abstract int findPageToRemove();
-    public abstract void handleRequest();
+    public void handleRequest() {
+        if(!isInMainMemory(activeRequest.page)){
+            pageFaults++;
+            place = findEmpty();
+            if(place == -1){
+                place = findPageToRemove();
+            }
+            mainMemory[place] = activeRequest.page;
+            activeRequest.page.placedInMemory = timePassed;
+        }
+        activeRequest.page.lastRequested = timePassed;
+        requestQueue.remove(0);
+        if(!isDone()) activeRequest = requestQueue.get(0);
+    }
 
     public int findEmpty(){
         for (int i = 0; i < mainMemory.length; i++) {
