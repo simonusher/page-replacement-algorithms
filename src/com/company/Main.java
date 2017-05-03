@@ -30,8 +30,11 @@ public class Main {
 //        rand.handleQueue();
 //        System.out.println(rand.pageFaults);
 
-        OPT o = new OPT (requestQueue, virtualMemory, 3);
-        o.handleQueue();
-        System.out.println(o.pageFaults);
+//        OPT o = new OPT (requestQueue, virtualMemory, 3);
+//        o.handleQueue();
+//        System.out.println(o.pageFaults);
+        LRU lru = new LRU(requestQueue, virtualMemory, 3);
+        lru.handleQueue();
+        System.out.println(lru.pageFaults);
     }
 }
