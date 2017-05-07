@@ -7,8 +7,9 @@ import java.util.Random;
  * Created by Igor on 03.05.2017.
  */
 public class Generator {
-    public static Random generator = new Random();
-    public static ArrayList<Page> generateVirtualMemory(int numberOfPages){
+    private static Random generator = new Random();
+
+    static ArrayList<Page> generateVirtualMemory(int numberOfPages){
         ArrayList<Page> virtualMemory = new ArrayList<>();
         for (int i = 0; i < numberOfPages; i++) {
             virtualMemory.add(new Page(i));
@@ -16,7 +17,7 @@ public class Generator {
         return virtualMemory;
     }
 
-    public static ArrayList<Request> generateRequestQueue(ArrayList<Page> virtualMemory, int numberOfRequests){
+    static ArrayList<Request> generateRequestQueue(ArrayList<Page> virtualMemory, int numberOfRequests){
         ArrayList<Request> requestQueue = new ArrayList<>();
         int size = virtualMemory.size();
         Request lastGenerated;

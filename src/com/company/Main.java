@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    //TODO Dokumentacja programu
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Virtual memory size (number of pages): ");
